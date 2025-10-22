@@ -1,5 +1,5 @@
-usuarios = []
-adm = []
+usuarios = [['ryancliente','clinte123']]
+adm = [['denisadm','adm123']]
 op = 99
 s_n = input('Olá, seja bem vindo, você ja possui cadastro?[s/n] ')
 if s_n == 'n':
@@ -20,5 +20,4 @@ if s_n == 'n':
             senha = input('digite uma senha: ')
             usuarios.append([login,senha])
             print('Cadastro concluído')
-elif s_n == 's':
-    #fazer o menu principal
+#elif s_n == 's':
