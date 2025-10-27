@@ -1,7 +1,7 @@
 usuarios = [['ryancliente','cliente123']]
 adm = [['ryanadm','adm123']]
 produtos = [["Ração para cães", "R$60",],["Brinquedo de borracha", "R$60"],["Coleira ajustável", "R$60"],["Shampoo para pets", "R$60"],["Caminha confortável", "R$60"]]
-servicos = [["Banho e tosa", "R$100", "Às 10H"],["Consulta veterinária", "R$100", "Às 10H"],["Hospedagem de pets", "R$100", "Às 10H"],["Adestramento", "R$100", "Às 10H"],["Vacinação", "R$100", "Às 10H"]]
+servicos = [["Banho e tosa", "R$100", ["Às 10H", "Às 14H"]],["Consulta veterinária", "R$100", ["Às 10H", "Às 14H"]],["Hospedagem de pets", "R$100", ["Às 10H", "Às 14H"]],["Adestramento", "R$100", ["Às 10H", "Às 14H"]],["Vacinação", "R$100", ["Às 10H", "Às 14H"]]]
 while True:
     print('-----Menu de login-----')
     print('0-Finalizar')
@@ -45,11 +45,17 @@ while True:
                 for i in servicos:
                     ind += 1
                     print('-------------')
-                    print(f'{ind}-{i[0]} {i[2]} {i[1]}')
-                ind = int(input('O que deseja comprar? '))
+                    print(f'{ind}-{i[0]} {i[1]}:')
+                    hr = 1
+                    for a in i[2]:
+                        print(f'{hr}-{a}')
+                        hr += 1
+                ind = int(input('O que deseja marcar? '))
+                hr = int(input('Qual horário deseja? '))
+
                 pg = input('Qual será a forma de pagamento? ')
                 print('Pagamento confirmado, obrigado pela preferência e volte sempre')
-                servicos.pop(ind - 1)
+                servicos[ind-1][2].pop(hr-1)
     if op == 2:
         login = input('Login: ')
         senha = input('Senha: ')
