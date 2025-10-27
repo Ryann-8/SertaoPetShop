@@ -16,7 +16,7 @@ while True:
         senha = input('Senha: ')
         confirm = []
         confirm.insert(0 ,[login,senha])
-        if confirm[0][0] == usuarios[0][0] and confirm[0][1] == usuarios[0][1]:
+        if confirm[0] in usuarios:
             print(f'Seja bem vindo, {login}')
         else:
             print('Você ainda não possui um login, cadastre-se agora:')
@@ -61,7 +61,7 @@ while True:
         senha = input('Senha: ')
         confirm = []
         confirm.insert(0, [login, senha])
-        if confirm[0][0] == adm[0][0] and confirm[0][1] == adm[0][1]:
+        if confirm[0] in adm:
             print(f'Seja bem vindo, {login}')
         else:
             print('Você ainda não possui um login, cadastre-se agora:')
