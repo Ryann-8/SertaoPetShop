@@ -38,12 +38,15 @@ while True:
                     print(f'{ind}-{i[0]} {i[1]}')
                     print(f'Estoque: {i[2]}')
                 ind = int(input('O que deseja comprar? '))
-                pg = input('Qual será a forma de pagamento? ')
-                if produtos[ind-1][2] == 0:
+                qtde = int(input('Quantos você deseja comprar?'))
+                if qtde < 0:
+                    print('Valor inválido')
+                elif produtos[ind-1][2] < qtde:
                     print('Desculpe, estamos sem estoque desse produto =(')
                 else:
+                    pg = input('Qual será a forma de pagamento? ')
                     print('Pagamento confirmado, obrigado pela preferência e volte sempre')
-                    produtos[ind-1][2] -= 1
+                    produtos[ind-1][2] -= qtde
             elif op == 2:
                 ind = 0
                 for i in servicos:
@@ -58,7 +61,7 @@ while True:
                 hr = int(input('Qual horário deseja? '))
 
                 pg = input('Qual será a forma de pagamento? ')
-                print('Pagamento confirmado, obrigado pela preferência e volte sempre')
+                print('Atendimento agendado')
                 servicos[ind-1][2].pop(hr-1)
     if op == 2:
         login = input('Login: ')
