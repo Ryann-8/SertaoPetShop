@@ -1,71 +1,56 @@
-usuarios = [['ryancliente','cliente123']]
-adm = [['ryanadm','adm123']]
+import funcoes_pet as pet
+from funcoes_pet import usuarios
+from funcoes_pet import adm
 produtos = [["Ração para cães", "R$60", 5],["Brinquedo de borracha", "R$60", 5],["Coleira ajustável", "R$60", 5],["Shampoo para pets", "R$60", 5],["Caminha confortável", "R$60", 5]]
 servicos = [["Banho e tosa", "R$100", ["Às 10H", "Às 14H"]],["Consulta veterinária", "R$100", ["Às 10H", "Às 14H"]],["Hospedagem de pets", "R$100", ["Às 10H", "Às 14H"]],["Adestramento", "R$100", ["Às 10H", "Às 14H"]],["Vacinação", "R$100", ["Às 10H", "Às 14H"]]]
 while True:
-    print('-----Menu de login-----')
-    print('0-Finalizar')
-    print('1-Fazer login como usuário')
-    print('2-Fazer login como administrador')
-    print('-----------------------')
-    op = int(input('Digite a opção desejada: '))
+    op = pet.menulogin()
     if op == 0:
         break
     elif op == 1:
         login = input('Login: ')
         senha = input('Senha: ')
-        confirm = []
-        confirm.insert(0 ,[login,senha])
-        if confirm[0] in usuarios:
+        if pet.confirmar(login, senha) == True:
             print(f'Seja bem vindo, {login}')
         else:
-            print('Você ainda não possui um login, cadastre-se agora:')
-            login = input('Crie um login: ')
-            senha = input('crie uma senha: ')
-        if len(login.strip()) != 0 and len(senha.strip()) != 0:
-            usuarios.insert(0, [login, senha])
-            while op != 0:
-                print('---Menu Principal---')
-                print('1-Produtos a venda')
-                print('2-Agendar serviços')
-                print('0-Sair')
-                print('--------------------')
-                op = int(input('O que deseja: '))
-                if op == 1:
-                    ind = 0
-                    for i in produtos:
-                        ind += 1
-                        print('-------------')
-                        print(f'{ind}-{i[0]} {i[1]}')
-                        print(f'Estoque: {i[2]}')
-                    ind = int(input('O que deseja comprar? '))
-                    qtde = int(input('Quantos você deseja comprar?'))
-                    if qtde <= 0:
-                        print('Valor inválido')
-                    elif produtos[ind-1][2] < qtde:
-                        print('Desculpe, estamos sem estoque desse produto =(')
-                    else:
-                        pg = input('Qual será a forma de pagamento? ')
-                        print('Pagamento confirmado, obrigado pela preferência e volte sempre')
-                        produtos[ind-1][2] -= qtde
-                elif op == 2:
-                    ind = 0
-                    for i in servicos:
-                        ind += 1
-                        print('-------------')
-                        print(f'{ind}-{i[0]} {i[1]}:')
-                        hr = 1
-                        for a in i[2]:
-                            print(f'{hr}-{a}')
-                            hr += 1
-                    ind = int(input('O que deseja marcar? '))
-                    hr = int(input('Qual horário deseja? '))
-
+            print('Login inexistente, crie um:')
+            pet.criar()
+        while op != 0:
+            op = pet.menu_usuario()
+            if op == 1:
+                ind = 0
+                for i in produtos:
+                    ind += 1
+                    print('-------------')
+                    print(f'{ind}-{i[0]} {i[1]}')
+                    print(f'Estoque: {i[2]}')
+                ind = int(input('O que deseja comprar? '))
+                qtde = int(input('Quantos você deseja comprar?'))
+                if qtde <= 0:
+                    print('Valor inválido')
+                elif produtos[ind-1][2] < qtde:
+                    print('Desculpe, estamos sem estoque desse produto =(')
+                else:
                     pg = input('Qual será a forma de pagamento? ')
-                    print('Atendimento agendado')
-                    servicos[ind-1][2].pop(hr-1)
-        else:
-            print('Login ou senha vazios (ou só com espaços).')
+                    print('Pagamento confirmado, obrigado pela preferência e volte sempre')
+                    produtos[ind-1][2] -= qtde
+            elif op == 2:
+                ind = 0
+                for i in servicos:
+                    ind += 1
+                    print('-------------')
+                    print(f'{ind}-{i[0]} {i[1]}:')
+                    hr = 1
+                    for a in i[2]:
+                        print(f'{hr}-{a}')
+                        hr += 1
+                ind = int(input('O que deseja marcar? '))
+                hr = int(input('Qual horário deseja? '))
+
+                pg = input('Qual será a forma de pagamento? ')
+                print('Atendimento agendado')
+                servicos[ind-1][2].pop(hr-1)
+
     elif op == 2:
         login = input('Login: ')
         senha = input('Senha: ')
