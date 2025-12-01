@@ -1,29 +1,25 @@
 import funcoes_pet as pet
 from funcoes_pet import usuarios
 from funcoes_pet import adm
-produtos = [["Ração para cães", "R$60", 5],["Brinquedo de borracha", "R$60", 5],["Coleira ajustável", "R$60", 5],["Shampoo para pets", "R$60", 5],["Caminha confortável", "R$60", 5]]
-servicos = [["Banho e tosa", "R$100", ["Às 10H", "Às 14H"]],["Consulta veterinária", "R$100", ["Às 10H", "Às 14H"]],["Hospedagem de pets", "R$100", ["Às 10H", "Às 14H"]],["Adestramento", "R$100", ["Às 10H", "Às 14H"]],["Vacinação", "R$100", ["Às 10H", "Às 14H"]]]
+from funcoes_pet import produtos
+from funcoes_pet import servicos
 while True:
-    op = pet.menulogin()
+    op = pet.menu('login')
     if op == 0:
         break
     elif op == 1:
         login = input('Login: ')
         senha = input('Senha: ')
-        if pet.confirmar(login, senha) == True:
-            print(f'Seja bem vindo, {login}')
+        confirm = pet.confirmar(login, senha, usuarios)
+        if confirm == False:
+            print('Login inexistente, crie um: ')
+            pet.criar(usuarios)
         else:
-            print('Login inexistente, crie um:')
-            pet.criar()
+            print(f'Seja bem vindo, {login}')
         while op != 0:
-            op = pet.menu_usuario()
+            op = pet.menu('usuario')
             if op == 1:
-                ind = 0
-                for i in produtos:
-                    ind += 1
-                    print('-------------')
-                    print(f'{ind}-{i[0]} {i[1]}')
-                    print(f'Estoque: {i[2]}')
+                pet.listar(produtos)
                 ind = int(input('O que deseja comprar? '))
                 qtde = int(input('Quantos você deseja comprar?'))
                 if qtde <= 0:
@@ -35,15 +31,7 @@ while True:
                     print('Pagamento confirmado, obrigado pela preferência e volte sempre')
                     produtos[ind-1][2] -= qtde
             elif op == 2:
-                ind = 0
-                for i in servicos:
-                    ind += 1
-                    print('-------------')
-                    print(f'{ind}-{i[0]} {i[1]}:')
-                    hr = 1
-                    for a in i[2]:
-                        print(f'{hr}-{a}')
-                        hr += 1
+                pet.listar('servicos')
                 ind = int(input('O que deseja marcar? '))
                 hr = int(input('Qual horário deseja? '))
 
@@ -63,8 +51,8 @@ while True:
             login = input('Crie um login: ')
             senha = input('crie uma senha: ')
         if len(login.strip()) != 0 and len(senha.strip()) != 0:
+            usuarios.insert(0, [login, senha])
             while op != '0':
-                usuarios.insert(0, [login, senha])
                 print('---Menu Principal---')
                 print('1-Gerenciar produtos a venda')
                 print('2-Gerenciar serviços')
