@@ -30,15 +30,19 @@ def menu(tipo):
         op = (input('O que deseja: '))
         return op
 
-def confirmar(login, senha, tipo):
+def confirmar(tipo):
+    login = input('Login: ')
+    senha = input('Senha: ')
     confirm = []
     confirm.insert(0, [login, senha])
     if confirm[0] in tipo and (len(login.strip()) != 0 and len(senha.strip()) != 0):
-        return True
+        print(f'Seja bem vindo, {login}')
     else:
         return False
 
+
 def criar(tipo):
+    print('Login inexistente, crie um: ')
     while True:
         login = input('Login: ')
         senha = input('Senha: ')

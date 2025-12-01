@@ -8,18 +8,13 @@ while True:
     if op == 0:
         break
     elif op == 1:
-        login = input('Login: ')
-        senha = input('Senha: ')
-        confirm = pet.confirmar(login, senha, usuarios)
+        confirm = pet.confirmar(usuarios)
         if confirm == False:
-            print('Login inexistente, crie um: ')
             pet.criar(usuarios)
-        else:
-            print(f'Seja bem vindo, {login}')
         while op != 0:
             op = pet.menu('usuario')
             if op == 1:
-                pet.listar(produtos)
+                pet.listar('produtos')
                 ind = int(input('O que deseja comprar? '))
                 qtde = int(input('Quantos você deseja comprar?'))
                 if qtde <= 0:
@@ -40,25 +35,11 @@ while True:
                 servicos[ind-1][2].pop(hr-1)
 
     elif op == 2:
-        login = input('Login: ')
-        senha = input('Senha: ')
-        confirm = []
-        confirm.insert(0, [login, senha])
-        if confirm[0] in adm:
-            print(f'Seja bem vindo, {login}')
-        else:
-            print('Você ainda não possui um login, cadastre-se agora:')
-            login = input('Crie um login: ')
-            senha = input('crie uma senha: ')
-        if len(login.strip()) != 0 and len(senha.strip()) != 0:
-            usuarios.insert(0, [login, senha])
+        confirm = pet.confirmar(adm)
+        if confirm == False:
+            pet.criar(adm)
             while op != '0':
-                print('---Menu Principal---')
-                print('1-Gerenciar produtos a venda')
-                print('2-Gerenciar serviços')
-                print('0-Sair')
-                print('--------------------')
-                op = (input('O que deseja: '))
+                pet.menu('adm')
                 if op == '1':
                     print('---Produtos a venda---')
                     ind = 1
