@@ -79,3 +79,17 @@ def listar(tipo):
                 print(f'{hr}-{a}')
                 hr += 1
 
+def comprar(qtde, ind):
+    if qtde <= 0:
+        print('Valor inválido')
+    elif produtos[ind - 1][2] < qtde:
+        print('Desculpe, estamos sem estoque desse produto =(')
+    else:
+        pg = input('Qual será a forma de pagamento? ')
+        print('Pagamento confirmado, obrigado pela preferência e volte sempre')
+        produtos[ind - 1][2] -= qtde
+
+def agendar(ind, hr):
+    pg = input('Qual será a forma de pagamento? ')
+    print('Atendimento agendado')
+    servicos[ind - 1][2].pop(hr - 1)

@@ -17,22 +17,12 @@ while True:
                 pet.listar('produtos')
                 ind = int(input('O que deseja comprar? '))
                 qtde = int(input('Quantos você deseja comprar?'))
-                if qtde <= 0:
-                    print('Valor inválido')
-                elif produtos[ind-1][2] < qtde:
-                    print('Desculpe, estamos sem estoque desse produto =(')
-                else:
-                    pg = input('Qual será a forma de pagamento? ')
-                    print('Pagamento confirmado, obrigado pela preferência e volte sempre')
-                    produtos[ind-1][2] -= qtde
+                pet.comprar(qtde, ind)
             elif op == 2:
                 pet.listar('servicos')
                 ind = int(input('O que deseja marcar? '))
                 hr = int(input('Qual horário deseja? '))
-
-                pg = input('Qual será a forma de pagamento? ')
-                print('Atendimento agendado')
-                servicos[ind-1][2].pop(hr-1)
+                pet.agendar(ind, hr)
 
     elif op == 2:
         confirm = pet.confirmar(adm)
