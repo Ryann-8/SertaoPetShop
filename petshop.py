@@ -32,10 +32,7 @@ while True:
                 pet.menu('adm')
                 if op == '1':
                     print('---Produtos a venda---')
-                    ind = 1
-                    for i in produtos:
-                        print(f'{ind}-{i[0]} {i[1]}')
-                        ind += 1
+                    pet.listar('produtos')
                     while op != 0:
                         print('---------------')
                         print('0-sair')
