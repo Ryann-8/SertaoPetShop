@@ -1,3 +1,5 @@
+import cv2 as cv
+from datetime import datetime
 def menu(tipo):
     if tipo == 'login':
         print('-----Menu de login-----')
@@ -6,7 +8,6 @@ def menu(tipo):
         print('2-Fazer login como administrador')
         print('-----------------------')
         op = int(input('Digite a opção desejada: '))
-        return op
     elif tipo == 'usuario':
         print('---Menu Principal---')
         print('1-Produtos a venda')
@@ -14,7 +15,6 @@ def menu(tipo):
         print('0-Sair')
         print('--------------------')
         op = int(input('O que deseja: '))
-        return op
     elif tipo == 'adm':
         print('---Menu Principal---')
         print('1-Gerenciar produtos a venda')
@@ -22,37 +22,26 @@ def menu(tipo):
         print('0-Sair')
         print('--------------------')
         op = (input('O que deseja: '))
-        return op
+    return op
 
-def confirmar(tipo):
-    login = input('Login: ')
-    senha = input('Senha: ')
-    confirm = []
-    confirm.insert(0, [login, senha])
-    if confirm[0] in tipo and (len(login.strip()) != 0 and len(senha.strip()) != 0):
-        print(f'Seja bem vindo, {login}')
+def confirmar(login, senha, tipo):
+    if (login in tipo.keys() and senha in tipo.values()) and (len(login.strip()) != 0 and len(senha.strip()) != 0):
+        return True
     else:
         return False
-
 
 def criar(tipo):
     print('Login inexistente, crie um: ')
     while True:
         login = input('Login: ')
         senha = input('Senha: ')
-        cont = 0
-        for i in tipo:
-            for a in i:
-                if a == login:
-                    cont += 1
-                else:
-                    cont += 0
-        if cont == 0 and (len(login.strip()) != 0 and len(senha.strip()) != 0):
-            tipo.insert(0, [login, senha])
+        if login not in tipo.keys() and (len(login.strip()) != 0 and len(senha.strip()) != 0):
+            tipo[login] = senha
             print(f'Conta criada, seja bem vindo {login}')
             break
         else:
             print('Login existente ou inválido, tente outro')
+    return login
 
 def listar(tipo, ti):
     if ti == 'produtos':
@@ -202,3 +191,18 @@ def alterar_h(tipo):
             novo_h = input('Digite o novo horário: ')
             tipo[ind - 1][2].append(novo_h)
             print('Horario adicionado')
+
+def capturar(login):
+    img = cv.VideoCapture(0)
+
+    if not img.isOpened():
+        print('Erro ao abrir a câmera')
+        exit()
+
+    ret, frame = img.read()
+    if ret:
+        nome_arquivo = 'Registro/' + login + '-' + datetime.now().strftime("%d-%m-%Y-%H-%M-%S") + '.jpg'
+        cv.imwrite(nome_arquivo, frame)
+    else:
+        print('erro ao capturar')
+    img.release()
